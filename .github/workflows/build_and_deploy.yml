@@ -1,7 +1,7 @@
 name: Build and Deploy Flutter application
-on: [push]
+on: [ push ]
 jobs:
-  build_android_flutter_app:
+  analyze_flutter_app:
     name: Check Flutter sources
     runs-on: ubuntu-latest
     steps:
@@ -12,12 +12,12 @@ jobs:
         with:
           flutter-version: '2.10.4'
           channel: 'stable'
-          -run: flutter analyze
-          name: Analyzing source
-          build_android_flutter_app:
+      - run: flutter analyze
+        name: Analyzing sources
+  build_android_flutter_app:
     name: Build Android application using Flutter
     runs-on: ubuntu-latest
-    needs: [analyze_flutter_app]
+    needs: [ analyze_flutter_app ]
     steps:
       - uses: actions/checkout@v3
         name: Downloading sources
@@ -29,7 +29,7 @@ jobs:
       - run: |
           flutter build apk --build-name=1.0.0-${{github.sha}} --build-number=${{github.run_number}} --verbose
         name: Building application
-        - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v3
         name: Archive production artifacts
         with:
           name: android-app-1.0.0-${{github.run_number}}-${{github.sha}}
@@ -39,6 +39,7 @@ jobs:
   build_ios_flutter_app:
     name: Build iOS application using Flutter
     runs-on: macos-latest
+    needs: [ analyze_flutter_app ]
     steps:
       - uses: actions/checkout@v3
         name: Downloading sources
@@ -47,7 +48,7 @@ jobs:
         with:
           flutter-version: '2.10.4'
           channel: 'stable'
-       - run: |
+      - run: |
           ./generate_ios_plist.sh
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp ios/fluttertourdev.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
