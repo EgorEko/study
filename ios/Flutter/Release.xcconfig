@@ -1,1 +1,7 @@
 #include "Generated.xcconfig"
+
+APP_IDENTIFIER=me.fluttertour
+CODE_SIGN_STYLE=Manual
+DEVELOPMENT_TEAM=8MJN994E42
+CODE_SIGN_IDENTITY=Apple Distribution: Mykola Dymura (8MJN994E42)
+PROVISIONING_PROFILE_SPECIFIER=flutter-egor-study

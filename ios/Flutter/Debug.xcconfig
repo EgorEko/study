@@ -1,1 +1,6 @@
 #include "Generated.xcconfig"
+
+APP_IDENTIFIER=me.fluttertour
+CODE_SIGN_STYLE=Automatic
+DEVELOPMENT_TEAM=8MJN994E42
+CODE_SIGN_IDENTITY=Apple Development
