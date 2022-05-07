@@ -1,7 +1,44 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  final service = TitleService();
+  runApp(
+    ServiceLocator(titleService: service, child: const MyApp()),
+  );
+}
+
+class TitleService {
+  String get appTitle => 'Flutter Demo';
+
+  String get pageTitle => 'Flutter Demo Home Page';
+}
+
+class TitleServiceNew extends TitleService {
+  @override
+  String get appTitle => 'Oops Demo';
+
+  @override
+  String get pageTitle => 'Oops Demo Home Page';
+}
+
+class ServiceLocator extends InheritedWidget {
+  const ServiceLocator({
+    Key? key,
+    required this.titleService,
+    required Widget child,
+  }) : super(key: key, child: child);
+
+  final TitleService titleService;
+
+  static ServiceLocator? of(BuildContext context) {
+    final ServiceLocator? result =
+        context.dependOnInheritedWidgetOfExactType<ServiceLocator>();
+    return result;
+  }
+
+  @override
+  bool updateShouldNotify(ServiceLocator old) =>
+      old.titleService != titleService;
 }
 
 class MyApp extends StatelessWidget {
@@ -11,7 +48,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: ServiceLocator.of(context)?.titleService.appTitle ?? '',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -24,7 +61,8 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(
+          title: ServiceLocator.of(context)?.titleService.pageTitle ?? ''),
     );
   }
 }
