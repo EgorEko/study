@@ -18,6 +18,6 @@ class ServiceLocator extends InheritedWidget {
   }
 
   @override
-  bool updateShouldNotify(ServiceLocator old) =>
-      old.titleService != titleService;
+  bool updateShouldNotify(ServiceLocator oldWidget) =>
+      oldWidget.titleService != titleService;
 }
