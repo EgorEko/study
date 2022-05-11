@@ -9,5 +9,5 @@ class TitleServiceNew extends TitleService {
   String get appTitle => 'Oops Demo';
 
   @override
-  String get pageTitle => 'Oops Demo Home Page_';
+  String get pageTitle => 'Oops Demo Home Page';
 }
