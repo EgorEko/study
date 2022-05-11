@@ -51,7 +51,7 @@ jobs:
       - run: |
           ./generate_ios_plist.sh
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          cp ios/fluttertourdev.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
+          cp ios/flutteregorstudy.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
           
           security create-keychain -p "" flutter-build.keychain
           security import ios/flutter-tour.p12 -t agg -k ~/Library/Keychains/flutter-build.keychain -P "098qwe!@#" -A
