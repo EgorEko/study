@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:study/increment_service.dart';
+
+import 'counter_widget.dart';
+import 'home_page_view_model.dart';
 
 class MyHomePage extends StatelessWidget {
   final String title;
@@ -19,14 +21,14 @@ class MyHomePage extends StatelessWidget {
             const Text(
               'You have pushed the button this many times:',
             ),
-            Consumer<IncrementService>(
+            Consumer<HomePageViewModel>(
               builder: (_, service, child) {
-                final counter = service.value;
+                final counter = service.currentValueText;
                 return Row(
                   children: [
                     child!,
                     Text(
-                      '$counter',
+                      counter,
                       style: Theme.of(context).textTheme.headline4,
                     ),
                   ],
@@ -44,24 +46,10 @@ class MyHomePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () =>
-            Provider.of<IncrementService>(context, listen: false).increment(),
+            Provider.of<HomePageViewModel>(context, listen: false).increment(),
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ),
-    );
-  }
-}
-
-class CounterText extends StatelessWidget {
-  const CounterText({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final counter = Provider.of<IncrementService>(context).value;
-
-    return Text(
-      '$counter',
-      style: Theme.of(context).textTheme.headline4,
     );
   }
 }

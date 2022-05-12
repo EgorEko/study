@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:study/app_injector.dart';
+import 'package:study/pages/home/home_page_view_model.dart';
 
-import 'my_home_page.dart';
+import 'pages/home/home_page.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -9,6 +11,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    Provider.of<HomePageViewModel>(context, listen: false).initialize();
     return MaterialApp(
       title: context.titleService.appTitle,
       theme: ThemeData(
