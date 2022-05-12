@@ -68,7 +68,7 @@ jobs:
         with:
           name: ios-app-1.0.0-${{github.run_number}}-${{github.sha}}
           path: |
-            build/ios/ipa/flutter_tour.ipa
+            build/ios/ipa/study.ipa
           retention-days: 1
   deploy_apps:
     name: Upload all artifacts
