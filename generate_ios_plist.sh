@@ -1,7 +1,7 @@
-APPLICATION_ID=me.fluttertour
+APPLICATION_ID=me.flutterstudy
 DEVELOPMENT_TEAM_ID=8MJN994E42
 DEVELOPMENT_TEAM_NAME='Mykola Dymura'
-PROVISIONING_PROFILE_SPECIFIER=flutter-tour-dev
+PROVISIONING_PROFILE_SPECIFIER=flutter-egor-study
 
 {
   printf '<?xml version="1.0" encoding="UTF-8"?>'
