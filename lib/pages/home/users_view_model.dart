@@ -7,7 +7,8 @@ class UsersViewModel extends ChangeNotifier {
   UsersViewModel(this._apiService);
 
   Future<void> load() async {
-    final users = await _apiService.getUsers();
-    print(users.length);
+    final users = await _apiService.getUsers(perPage: 20, since: 30);
+    debugPrint('UsersViewModel: load() -> ${users.length}');
+    debugPrint('UsersViewModel: load() -> ${users.last.id}');
   }
 }
