@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:study/pages/home/issues_view_model.dart';
 
-import 'counter_widget.dart';
 import 'home_page_view_model.dart';
 
 class MyHomePage extends StatelessWidget {
@@ -24,23 +24,32 @@ class MyHomePage extends StatelessWidget {
             Consumer<HomePageViewModel>(
               builder: (_, service, child) {
                 final counter = service.currentValueText;
-                return Row(
-                  children: [
-                    child!,
-                    Text(
-                      counter,
-                      style: Theme.of(context).textTheme.headline4,
-                    ),
-                  ],
+                return Text(
+                  counter,
+                  style: Theme.of(context).textTheme.headline4,
                 );
               },
-              child: Image.asset(
-                'images/download.jpeg',
-                width: 400,
-                height: 400,
-              ),
             ),
-            const CounterText(),
+            Expanded(
+              child: Consumer<IssuesViewModel>(
+                builder: (_, issuesVM, child) {
+                  if (issuesVM.isLoading) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  final items = issuesVM.issues;
+                  return ListView.builder(
+                      itemCount: items.length,
+                      itemBuilder: (_, index) {
+                        final item = items[index];
+                        return ListTile(
+                          title: Text(item.title),
+                          subtitle: Text(item.body ?? '',
+                              maxLines: 3, overflow: TextOverflow.ellipsis),
+                        );
+                      });
+                },
+              ),
+            )
           ],
         ),
       ),
