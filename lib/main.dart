@@ -23,8 +23,7 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: homeViewModel),
-        ChangeNotifierProvider(
-            create: (context) => IssuesViewModel(apiService)),
+        ChangeNotifierProvider.value(value: usersViewModel),
         Provider<TitleService>.value(value: service),
       ],
       child: const MyApp(),
