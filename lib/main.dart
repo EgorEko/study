@@ -15,7 +15,9 @@ void main() {
   var incrementService = IncrementService(counterRepository, step: 2);
   final homeViewModel = HomePageViewModel(incrementService);
 
-  final apiService = ApiService('https://api.github.com');
+  const currentUserToken = String.fromEnvironment('GITHUB_USER_TOKEN');
+  //'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'
+  final apiService = ApiService('https://api.github.com', currentUserToken);
   final usersViewModel = IssuesViewModel(apiService);
   usersViewModel.load();
 

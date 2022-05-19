@@ -1,14 +1,21 @@
 {
     // Use IntelliSense to learn about possible attributes.
     // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "pwa-chrome",
+            "name": "main",
             "request": "launch",
-            "name": "Launch Chrome against localhost",
-            "url": "http://localhost:3000",
-            "webRoot": "${workspaceFolder}"
-        }
+            "type": "dart"
+        },
+        {
+            "name": "authenticated",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--dart-define",
+                "GITHUB_USER_TOKEN=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"]
+        },
     ]
 }

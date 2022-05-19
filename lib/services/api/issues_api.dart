@@ -1,10 +1,11 @@
 part of 'api_service.dart';
 
 extension IssuesApi on ApiService {
-  Future<List<IssueDTO>> getIssues({int perPage = 15, int? page}) async {
-    final owner = 'flutterchina';
-    final repo = 'dio';
-
+  Future<List<IssueDTO>> getIssues(
+      {required String owner,
+      required String repo,
+      int perPage = 15,
+      int? page}) async {
     final url = _baseUri.replace(
         path: '/repos/$owner/$repo/issues',
         queryParameters: <String, dynamic>{
@@ -15,10 +16,8 @@ extension IssuesApi on ApiService {
     return _parseList(response, (e) => IssueDTO.fromJson(e));
   }
 
-  Future<IssueDTO> getIssue(int issue) async {
-    final owner = 'flutterchina';
-    final repo = 'dio';
-
+  Future<IssueDTO> getIssue(int issue,
+      {required String owner, required String repo}) async {
     final url = _baseUri.replace(
       path: '/repos/$owner/$repo/issues/$issue',
     );

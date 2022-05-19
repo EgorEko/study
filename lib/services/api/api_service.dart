@@ -14,7 +14,9 @@ class ApiService {
     'Accept': 'application/vnd.github.v3+jsons'
   };
 
-  ApiService(String baseUrl) : _baseUri = Uri.parse(baseUrl);
+  ApiService(String baseUrl, String token) : _baseUri = Uri.parse(baseUrl) {
+    _defaultHeaders['Authorization'] = 'Bearer $token';
+  }
 
   List<T> _parseList<T>(http.Response response, T Function(dynamic) parser) {
     if (response.statusCode == 200) {
