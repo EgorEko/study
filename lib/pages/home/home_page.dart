@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:study/pages/home/issues_view_model.dart';
 
 import 'home_page_view_model.dart';
 
-class MyHomePage extends StatelessWidget {
+class HomePage extends StatelessWidget {
   final String title;
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+  const HomePage({Key? key, required this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,26 +29,9 @@ class MyHomePage extends StatelessWidget {
                 );
               },
             ),
-            Expanded(
-              child: Consumer<IssuesViewModel>(
-                builder: (_, issuesVM, child) {
-                  if (issuesVM.isLoading) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                  final items = issuesVM.issues;
-                  return ListView.builder(
-                      itemCount: items.length,
-                      itemBuilder: (_, index) {
-                        final item = items[index];
-                        return ListTile(
-                          title: Text(item.title),
-                          subtitle: Text(item.body ?? '',
-                              maxLines: 3, overflow: TextOverflow.ellipsis),
-                        );
-                      });
-                },
-              ),
-            )
+            TextButton(
+                onPressed: () => {Navigator.pushNamed(context, '/issues')},
+                child: const Text('Issues')),
           ],
         ),
       ),

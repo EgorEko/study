@@ -12,11 +12,14 @@ class IssuesViewModel extends ChangeNotifier {
 
   bool get isLoading => _issues == null;
 
+  @override
+  void addListener(VoidCallback listener) {
+    super.addListener((listener));
+    load();
+  }
+
   Future<void> load() async {
-    final users = await _apiService.getUsers(perPage: 20, since: 30);
-    debugPrint('$runtimeType: load() -> users count ${users.length}');
-    debugPrint('$runtimeType: load() -> last user in page ${users.last.id}');
-    _issues = await _apiService.getIssues(owner: 'EgorEko', repo: 'study');
+    _issues ??= await _apiService.getIssues(owner: 'EgorEko', repo: 'study');
     notifyListeners();
   }
 }

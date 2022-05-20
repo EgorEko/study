@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:study/app_injector.dart';
 import 'package:study/pages/home/home_page_view_model.dart';
+import 'package:study/pages/issues/issues_page.dart';
 
 import 'pages/home/home_page.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  final String initialRoute;
+  const MyApp({Key? key, this.initialRoute = '/'}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -26,9 +28,11 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(
-        title: context.titleService.pageTitle,
-      ),
+      routes: {
+        '/': (context) => HomePage(title: context.titleService.pageTitle),
+        '/issues': (context) => const IssuesPage()
+      },
+      initialRoute: initialRoute,
     );
   }
 }

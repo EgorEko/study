@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:study/dummy_api_service.dart';
 import 'package:study/pages/home/home_page_view_model.dart';
-import 'package:study/pages/home/issues_view_model.dart';
+import 'package:study/pages/issues/issues_view_model.dart';
 import 'package:study/repositories/counter_repository.dart';
 import 'package:study/services/api/api_service.dart';
 import 'package:study/services/increment_service.dart';
@@ -18,8 +19,7 @@ void main() {
   const currentUserToken = String.fromEnvironment('GITHUB_USER_TOKEN');
   //'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'
   final apiService = ApiService('https://api.github.com', currentUserToken);
-  final usersViewModel = IssuesViewModel(apiService);
-  usersViewModel.load();
+  final usersViewModel = IssuesViewModel(dummyApiService);
 
   runApp(
     MultiProvider(
@@ -28,7 +28,9 @@ void main() {
         ChangeNotifierProvider.value(value: usersViewModel),
         Provider<TitleService>.value(value: service),
       ],
-      child: const MyApp(),
+      child: const MyApp(
+        initialRoute: '/',
+      ),
     ),
   );
   //runApp(Provider<TitleService>(
