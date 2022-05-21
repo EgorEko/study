@@ -17,5 +17,13 @@
                 "--dart-define",
                 "GITHUB_USER_TOKEN=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"]
         },
+        {
+            "name": "dummy",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--target=lib/dummy.dart",
+                ]
+        },
     ]
 }

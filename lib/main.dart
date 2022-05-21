@@ -17,9 +17,8 @@ void main() {
   final homeViewModel = HomePageViewModel(incrementService);
 
   const currentUserToken = String.fromEnvironment('GITHUB_USER_TOKEN');
-  //'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'
   final apiService = ApiService('https://api.github.com', currentUserToken);
-  final usersViewModel = IssuesViewModel(dummyApiService);
+  final usersViewModel = IssuesViewModel(apiService);
 
   runApp(
     MultiProvider(
