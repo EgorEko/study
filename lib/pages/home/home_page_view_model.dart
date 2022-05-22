@@ -8,8 +8,10 @@ class HomePageViewModel extends ChangeNotifier {
 
   String get currentValueText => _incrementService.currentValue.toString();
 
-  void initialize() {
-    _incrementService.load();
+  @override
+  void addListener(VoidCallback listener) {
+    super.addListener(listener);
+    _incrementService.load().whenComplete(() => notifyListeners());
   }
 
   void increment() {

@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:study/app_injector.dart';
+import 'package:study/issues_routes_named.dart';
 
 import 'home_page_view_model.dart';
 
 class HomePage extends StatelessWidget {
-  final String title;
-  const HomePage({Key? key, required this.title}) : super(key: key);
+  const HomePage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text(context.titleService.pageTitle),
       ),
       body: Center(
         child: Column(
@@ -30,7 +33,8 @@ class HomePage extends StatelessWidget {
               },
             ),
             TextButton(
-                onPressed: () => {Navigator.pushNamed(context, '/issues')},
+                onPressed: () =>
+                    {Navigator.pushNamed(context, issuesRouteName)},
                 child: const Text('Issues')),
           ],
         ),

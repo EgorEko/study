@@ -10,7 +10,7 @@ class IncrementService {
 
   int get currentValue => _value;
 
-  void load() async {
+  Future<void> load() async {
     final savedValue = await _counterRepository.read();
     _value = savedValue;
   }

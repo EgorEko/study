@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:study/app_injector.dart';
+import 'package:study/issues_routes_named.dart';
 import 'package:study/pages/home/home_page_view_model.dart';
-import 'package:study/pages/issues/issues_page.dart';
+import 'package:study/pages/issues/issues_page_build.dart';
+import 'package:study/services/increment_service.dart';
+import 'package:study/title_service.dart';
 
 import 'pages/home/home_page.dart';
 
@@ -13,24 +16,26 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    Provider.of<HomePageViewModel>(context, listen: false).initialize();
     return MaterialApp(
-      title: context.titleService.appTitle,
+      title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
       ),
       routes: {
-        '/': (context) => HomePage(title: context.titleService.pageTitle),
-        '/issues': (context) => const IssuesPage()
+        homeRouteName: (context) => MultiProvider(
+              providers: [
+                ChangeNotifierProvider(
+                  create: (_) => HomePageViewModel(
+                    IncrementService(context.counterRepository, step: 2),
+                  ),
+                ),
+                Provider(
+                  create: (_) => TitleService(),
+                ),
+              ],
+              child: const HomePage(),
+            ),
+        issuesRouteName: (context) => const IssuesPageBuilder()
       },
       initialRoute: initialRoute,
     );
