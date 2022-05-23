@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:study/app_injector.dart';
-import 'package:study/issues_routes_named.dart';
 
 import 'home_page_view_model.dart';
 
@@ -33,8 +32,7 @@ class HomePage extends StatelessWidget {
               },
             ),
             TextButton(
-                onPressed: () =>
-                    {Navigator.pushNamed(context, issuesRouteName)},
+                onPressed: () => context.navigationService.openIssues(context),
                 child: const Text('Issues')),
           ],
         ),

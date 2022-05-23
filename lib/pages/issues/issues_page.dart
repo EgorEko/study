@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:study/app_injector.dart';
 import 'package:provider/provider.dart';
-import 'package:study/pages/issues/issues_view_model.dart';
+
+import 'issues_view_model.dart';
 
 class IssuesPage extends StatelessWidget {
   const IssuesPage({Key? key}) : super(key: key);
@@ -23,6 +25,8 @@ class IssuesPage extends StatelessWidget {
                 final item = items[index];
                 return ListTile(
                   title: Text(item.title),
+                  onTap: () =>
+                      context.navigationService.openIssue(context, item.number),
                   subtitle: Text(item.body ?? '',
                       maxLines: 3, overflow: TextOverflow.ellipsis),
                 );

@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:study/app_injector.dart';
-import 'package:study/issues_routes_named.dart';
+import 'package:study/app_routes_names.dart';
 import 'package:study/pages/home/home_page_view_model.dart';
+import 'package:study/pages/issue_details/issue_details_page.dart';
 import 'package:study/pages/issues/issues_page_build.dart';
 import 'package:study/services/increment_service.dart';
+import 'package:study/services/navigation_service.dart';
 import 'package:study/title_service.dart';
 
+import 'app_routes.dart';
 import 'pages/home/home_page.dart';
 
 class MyApp extends StatelessWidget {
@@ -21,22 +24,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      routes: {
-        homeRouteName: (context) => MultiProvider(
-              providers: [
-                ChangeNotifierProvider(
-                  create: (_) => HomePageViewModel(
-                    IncrementService(context.counterRepository, step: 2),
-                  ),
-                ),
-                Provider(
-                  create: (_) => TitleService(),
-                ),
-              ],
-              child: const HomePage(),
-            ),
-        issuesRouteName: (context) => const IssuesPageBuilder()
-      },
+      onGenerateRoute: onGenerateAppRoute,
+      routes: appRoutes,
       initialRoute: initialRoute,
     );
   }
