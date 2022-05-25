@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:study/services/api/responses/issue_dto.dart';
+import 'responses/issue_dto.dart';
 import 'responses/user_dto.dart';
 
 part 'issues_api.dart';

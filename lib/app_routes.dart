@@ -11,7 +11,7 @@ import 'services/increment_service.dart';
 import 'services/navigation_service.dart';
 import 'title_service.dart';
 
-RouteFactory onGenerateAppRoute = (RouteSettings settings) {
+Route? onGenerateAppRoute(RouteSettings settings) {
   if (settings.name == issueRouteName) {
     final args = settings.arguments as IssueDetailsArguments;
 
@@ -24,7 +24,7 @@ RouteFactory onGenerateAppRoute = (RouteSettings settings) {
     );
   }
   return null;
-};
+}
 
 final Map<String, WidgetBuilder> appRoutes = {
   homeRouteName: (context) => MultiProvider(
