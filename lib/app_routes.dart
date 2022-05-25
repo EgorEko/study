@@ -23,6 +23,7 @@ RouteFactory onGenerateAppRoute = (RouteSettings settings) {
       },
     );
   }
+  return null;
 };
 
 final Map<String, WidgetBuilder> appRoutes = {
