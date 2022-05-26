@@ -22,4 +22,10 @@ class IssuesViewModel extends ChangeNotifier {
     _issues ??= await _apiService.getIssues(owner: 'EgorEko', repo: 'study');
     notifyListeners();
   }
+
+  void add(IssueDTO newIssue) {
+    _issues ??= <IssueDTO>[];
+    _issues?.insert(0, newIssue);
+    notifyListeners();
+  }
 }

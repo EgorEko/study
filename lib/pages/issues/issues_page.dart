@@ -34,7 +34,12 @@ class IssuesPage extends StatelessWidget {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => {},
+        onPressed: () async {
+          final issue = await context.navigationService.openNewIssue(context);
+          if (issue != null) {
+            context.issuesViewModel.add(issue);
+          }
+        },
         tooltip: 'New Issue',
         child: const Icon(Icons.add),
       ),

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:study/repositories/counter_repository.dart';
-import 'package:study/services/api/api_service.dart';
-import 'package:study/services/navigation_service.dart';
 
+import 'pages/issues/issues_view_model.dart';
+import 'repositories/counter_repository.dart';
+import 'services/api/api_service.dart';
+import 'services/navigation_service.dart';
 import 'title_service.dart';
 
 extension AppInjector on BuildContext {
@@ -17,4 +18,7 @@ extension AppInjector on BuildContext {
 
   NavigationService get navigationService =>
       Provider.of<NavigationService>(this, listen: false);
+
+  IssuesViewModel get issuesViewModel =>
+      Provider.of<IssuesViewModel>(this, listen: false);
 }

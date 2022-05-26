@@ -16,6 +16,21 @@ extension IssuesApi on ApiService {
     return _parseList(response, (e) => IssueDTO.fromJson(e));
   }
 
+  Future<IssueDTO> createIssue(
+      {required String owner,
+      required String repo,
+      required String title,
+      String? body}) async {
+    final url = _baseUri.replace(path: '/repos/$owner/$repo/issues');
+    final requestBody = {
+      'title': title,
+      if (body != null) 'body': body,
+    };
+    final response = await _client.post(url,
+        body: jsonEncode(requestBody), headers: _defaultHeaders);
+    return _parseObject(response, (e) => IssueDTO.fromJson(e));
+  }
+
   Future<IssueDTO> getIssue(int issue,
       {required String owner, required String repo}) async {
     final url = _baseUri.replace(

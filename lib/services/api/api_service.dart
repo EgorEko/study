@@ -31,7 +31,7 @@ class ApiService {
 
   T _parseObject<T>(
       http.Response response, T Function(Map<String, dynamic>) parser) {
-    if (response.statusCode == 200) {
+    if (response.statusCode >= 200 && response.statusCode < 300) {
       final body = response.body;
       final Map<String, dynamic> result = jsonDecode(body);
       return parser(result);
