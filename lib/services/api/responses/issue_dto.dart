@@ -8,4 +8,8 @@ class IssueDTO {
   factory IssueDTO.fromJson(Map<String, dynamic> json) {
     return IssueDTO._(json['number'], json['title'], json['body']);
   }
+
+  factory IssueDTO.fromNumber(int number) {
+    return IssueDTO._(number, '', null);
+  }
 }

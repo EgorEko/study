@@ -1,15 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:study/app_injector.dart';
+import 'package:study/pages/issues/issues_view_model.dart';
 
-class NewIssuePage extends StatefulWidget {
-  const NewIssuePage({Key? key}) : super(key: key);
+class EditIssuePage extends StatefulWidget {
+  final IssueModel issue;
+  const EditIssuePage({Key? key, required this.issue}) : super(key: key);
 
   @override
-  State<NewIssuePage> createState() => _NewIssuePageState();
+  State<EditIssuePage> createState() => _NewIssuePageState();
 }
 
-class _NewIssuePageState extends State<NewIssuePage> {
+class _NewIssuePageState extends State<EditIssuePage> {
   late final titleController = TextEditingController();
   late final bodyController = TextEditingController();
   bool _creating = false;
@@ -47,8 +49,8 @@ class _NewIssuePageState extends State<NewIssuePage> {
                         final title = titleController.text;
                         final body = bodyController.text;
                         try {
-                          context.issuesViewModel
-                              .createNewIssue(title: title, body: body);
+                          context.issuesViewModel.updateIssue(widget.issue,
+                              title: title, body: body);
                           Navigator.of(context).pop();
                         } finally {
                           setState(() {
@@ -56,7 +58,7 @@ class _NewIssuePageState extends State<NewIssuePage> {
                           });
                         }
                       },
-                      child: const Text('Create'))
+                      child: const Text('Update'))
                 ],
               ),
       )),
@@ -66,6 +68,8 @@ class _NewIssuePageState extends State<NewIssuePage> {
   @override
   void initState() {
     super.initState();
+    titleController.text = widget.issue.title;
+    bodyController.text = widget.issue.body ?? "";
   }
 
   @override

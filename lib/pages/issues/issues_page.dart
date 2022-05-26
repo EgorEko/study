@@ -29,16 +29,26 @@ class IssuesPage extends StatelessWidget {
                       context.navigationService.openIssue(context, item.number),
                   subtitle: Text(item.body ?? '',
                       maxLines: 3, overflow: TextOverflow.ellipsis),
+                  trailing: Row(mainAxisSize: MainAxisSize.min, children: [
+                    TextButton(
+                        onPressed: () {
+                          context.navigationService
+                              .openEditIssue(context, item);
+                        },
+                        child: const Text('Edit')),
+                    TextButton(
+                        onPressed: () {
+                          context.issuesViewModel.deleteIssue(item);
+                        },
+                        child: const Text('Delete')),
+                  ]),
                 );
               });
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          final issue = await context.navigationService.openNewIssue(context);
-          if (issue != null) {
-            context.issuesViewModel.add(issue);
-          }
+        onPressed: () {
+          context.navigationService.openNewIssue(context);
         },
         tooltip: 'New Issue',
         child: const Icon(Icons.add),

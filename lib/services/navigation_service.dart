@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:study/services/api/responses/issue_dto.dart';
 
 import '../app_routes_names.dart';
+import '../pages/issues/issues_view_model.dart';
 
 class NavigationService {
   void openHome(BuildContext context) {
@@ -17,8 +18,12 @@ class NavigationService {
         arguments: IssueDetailsArguments._(number));
   }
 
-  Future<IssueDTO?> openNewIssue(BuildContext context) {
-    return _pushNamed<IssueDTO?>(context, newIssueRouteName);
+  void openNewIssue(BuildContext context) {
+    _pushNamed<IssueDTO?>(context, newIssueRouteName);
+  }
+
+  void openEditIssue(BuildContext context, IssueModel issue) {
+    _pushNamed<IssueDTO?>(context, editIssueRouteName, arguments: issue);
   }
 
   Future<T?> _pushNamed<T extends Object?>(
