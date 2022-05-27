@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:study/app_injector.dart';
 import 'package:provider/provider.dart';
-import 'package:study/pages/new_issue/new_issue_page.dart';
 import 'package:study/pages/new_issue/new_issue_page_builder.dart';
 import 'package:study/services/api/responses/issue_dto.dart';
 
@@ -61,6 +60,5 @@ final Map<String, WidgetBuilder> appRoutes = {
         ],
         child: const HomePage(),
       ),
-  newIssueRouteName: (context) => const NewIssuePage(),
   issuesRouteName: (context) => const IssuesPageBuilder(),
 };
