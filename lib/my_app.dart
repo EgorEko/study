@@ -16,15 +16,15 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      localizationsDelegates: [
+      localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: [
-        Locale('en', ''), // English, no country code
-        Locale('ar', ''), // Spanish, no country code
+      supportedLocales: const [
+        Locale('en', ''),
+        Locale('ar', ''),
       ],
       //locale: Locale('ar', ''),
       onGenerateRoute: onGenerateAppRoute,
