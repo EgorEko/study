@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:study/app_injector.dart';
 import 'package:provider/provider.dart';
+import 'package:study/app_strings.dart';
 
 import 'issues_view_model.dart';
 
@@ -11,7 +12,7 @@ class IssuesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Issues'),
+        title: Text(context.localizations.issuesTitle),
       ),
       body: Consumer<IssuesViewModel>(
         builder: (_, issuesVM, child) {
@@ -31,16 +32,17 @@ class IssuesPage extends StatelessWidget {
                       maxLines: 3, overflow: TextOverflow.ellipsis),
                   trailing: Row(mainAxisSize: MainAxisSize.min, children: [
                     TextButton(
-                        onPressed: () {
-                          context.navigationService
-                              .openEditIssue(context, item);
-                        },
-                        child: const Text('Edit')),
+                      onPressed: () {
+                        context.navigationService.openEditIssue(context, item);
+                      },
+                      child: Text(context.localizations.editTitle),
+                    ),
                     TextButton(
-                        onPressed: () {
-                          context.issuesViewModel.deleteIssue(item);
-                        },
-                        child: const Text('Delete')),
+                      onPressed: () {
+                        context.issuesViewModel.deleteIssue(item);
+                      },
+                      child: Text(context.localizations.deleteTitle),
+                    ),
                   ]),
                 );
               });
