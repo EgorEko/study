@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:study/app_injector.dart';
+import 'package:study/app_theme_extended.dart';
 
 import 'home_page_view_model.dart';
 
@@ -13,7 +14,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(context.titleService.pageTitle),
+        title: Center(child: Text(context.titleService.pageTitle)),
       ),
       body: Center(
         child: Column(
@@ -31,9 +32,15 @@ class HomePage extends StatelessWidget {
                 );
               },
             ),
-            TextButton(
-                onPressed: () => context.navigationService.openIssues(context),
-                child: const Text('Issues')),
+            Container(
+              width: AppThemeExtended.of(context)!.containerWith,
+              height: Theme.of(context).containerHeight,
+              color: Colors.greenAccent,
+              child: TextButton(
+                  onPressed: () =>
+                      context.navigationService.openIssues(context),
+                  child: const Text('Issues')),
+            ),
           ],
         ),
       ),

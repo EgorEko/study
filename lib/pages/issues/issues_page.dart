@@ -24,26 +24,29 @@ class IssuesPage extends StatelessWidget {
               itemCount: items.length,
               itemBuilder: (_, index) {
                 final item = items[index];
-                return ListTile(
-                  title: Text(item.title),
-                  onTap: () =>
-                      context.navigationService.openIssue(context, item.number),
-                  subtitle: Text(item.body ?? '',
-                      maxLines: 3, overflow: TextOverflow.ellipsis),
-                  trailing: Row(mainAxisSize: MainAxisSize.min, children: [
-                    TextButton(
-                      onPressed: () {
-                        context.navigationService.openEditIssue(context, item);
-                      },
-                      child: Text(context.localizations.editTitle),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        context.issuesViewModel.deleteIssue(item);
-                      },
-                      child: Text(context.localizations.deleteTitle),
-                    ),
-                  ]),
+                return Card(
+                  child: ListTile(
+                    title: Text(item.title),
+                    onTap: () => context.navigationService
+                        .openIssue(context, item.number),
+                    subtitle: Text(item.body ?? '',
+                        maxLines: 3, overflow: TextOverflow.ellipsis),
+                    trailing: Row(mainAxisSize: MainAxisSize.min, children: [
+                      TextButton(
+                        onPressed: () {
+                          context.navigationService
+                              .openEditIssue(context, item);
+                        },
+                        child: Text(context.localizations.editTitle),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          context.issuesViewModel.deleteIssue(item);
+                        },
+                        child: Text(context.localizations.deleteTitle),
+                      ),
+                    ]),
+                  ),
                 );
               });
         },
