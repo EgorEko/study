@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
               secondary: Colors.deepOrangeAccent,
             ),
             appBarTheme: const AppBarTheme(
-              titleTextStyle: TextStyle(fontSize: 12),
+              titleTextStyle: TextStyle(fontSize: 12, color: Colors.white),
             )),
         localizationsDelegates: const [
           AppLocalizations.delegate,

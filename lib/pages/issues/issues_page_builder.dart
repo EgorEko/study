@@ -7,6 +7,6 @@ class IssuesPageBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const IssuesPage();
+    return IssuesPage();
   }
 }
