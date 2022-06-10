@@ -45,7 +45,7 @@ class IssuesPage extends StatelessWidget {
                       onPressed: () {
                         _refreshIndicatorKey.currentState?.show();
                       },
-                      icon: Icon(Icons.refresh)),
+                      icon: const Icon(Icons.refresh)),
                 ],
               ),
             ),
@@ -62,7 +62,7 @@ class IssuesPage extends StatelessWidget {
                       onPressed: () async {
                         _refreshIndicatorKey.currentState?.show();
                       },
-                      icon: Icon(Icons.refresh)),
+                      icon: const Icon(Icons.refresh)),
                 ],
               ),
             ),
