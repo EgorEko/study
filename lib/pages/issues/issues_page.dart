@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:study/app_injector.dart';
 import 'package:provider/provider.dart';
-import 'package:study/app_strings.dart';
-import 'package:study/pages/issues/issues_cubit.dart';
 
+import '../../app_injector.dart';
+import '../../app_strings.dart';
 import 'issues_view_model.dart';
+import 'issues_cubit.dart';
 
 class IssuesPage extends StatelessWidget {
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
@@ -73,6 +73,9 @@ class IssuesPage extends StatelessWidget {
             ListView.builder(
                 itemCount: items.length,
                 itemBuilder: (_, index) {
+                  if (index > items.length - 5) {
+                    Provider.of<IssuesCubit>(context, listen: false).loadMore();
+                  }
                   final item = items[index];
                   return Card(
                     child: ListTile(
