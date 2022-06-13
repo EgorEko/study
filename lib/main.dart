@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-import 'package:study/pages/issues/issues_cubit.dart';
-import 'package:study/pages/issues/issues_view_model.dart';
-import 'package:study/repositories/counter_repository.dart';
-import 'package:study/services/api/api_service.dart';
-import 'package:study/services/navigation_service.dart';
 
+import 'pages/issues/issues_view_model.dart';
+import 'repositories/counter_repository.dart';
+import 'services/api/api_service.dart';
+import 'services/navigation_service.dart';
 import 'my_app.dart';
+import 'pages/issues/bloc/issues_cubit.dart';
 
 void main() {
   const currentUserToken = String.fromEnvironment('GITHUB_USER_TOKEN');
@@ -24,7 +24,7 @@ void main() {
           create: (_) => NavigationService(),
         ),
         ChangeNotifierProvider(create: (_) => IssuesViewModel(apiService)),
-        BlocProvider(create: (_) => IssuesCubit(apiService))
+        BlocProvider(create: (_) => IssuesBloc(apiService))
       ],
       child: const MyApp(
         initialRoute: '/',

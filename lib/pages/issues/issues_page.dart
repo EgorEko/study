@@ -1,26 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 
 import '../../app_injector.dart';
 import '../../app_strings.dart';
-import 'issues_view_model.dart';
-import 'issues_cubit.dart';
+import 'bloc/issues_cubit.dart';
+import 'widgets/empty_issues_widget.dart';
+import 'widgets/failed_issues_widget.dart';
+import 'widgets/issue_tile.dart';
 
 class IssuesPage extends StatelessWidget {
-  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
-      GlobalKey<RefreshIndicatorState>();
-
-  IssuesPage({Key? key}) : super(key: key);
+  const IssuesPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<IssuesCubit>(context, listen: false).load();
     return Scaffold(
       appBar: AppBar(
         title: Text(context.localizations.issuesTitle),
       ),
-      body: buildBlocBody(),
+      body: _IssuesBodyContainer(
+        bodyBuilder: (context, state, refreshIndicatorKey) {
+          if (state is EmptyIssuesState) {
+            return EmtyIssuesWidget(
+                onRefresh: () => refreshIndicatorKey.currentState?.show());
+          } else if (state is FailedIssuesState) {
+            return FailedIssuesWidget(
+                onRetry: () => refreshIndicatorKey.currentState?.show(),
+                message: state.message);
+          } else if (state is LoadedIssuesState) {
+            final items = state.items;
+            return ListView.builder(
+                itemCount: items.length,
+                itemBuilder: (_, index) {
+                  if (index > items.length - 5) {
+                    context.issuesCubit.loadMore();
+                  }
+                  final item = items[index];
+                  return IssueTile(data: item);
+                });
+          }
+          return const SizedBox.shrink();
+        },
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           context.navigationService.openNewIssue(context);
@@ -30,132 +50,29 @@ class IssuesPage extends StatelessWidget {
       ),
     );
   }
+}
 
-  BlocBuilder<IssuesCubit, IssuesState> buildBlocBody() {
-    return BlocBuilder<IssuesCubit, IssuesState>(builder: (context, state) {
-      if (state is EmptyIssuesState) {
-        return withIndicator(
-            Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text('No issues! Create one tostart play'),
-                  IconButton(
-                      onPressed: () {
-                        _refreshIndicatorKey.currentState?.show();
-                      },
-                      icon: const Icon(Icons.refresh)),
-                ],
-              ),
-            ),
-            context);
-      } else if (state is FailedIssuesState) {
-        return withIndicator(
-            Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('Oops!!! ${state.message}'),
-                  IconButton(
-                      onPressed: () async {
-                        _refreshIndicatorKey.currentState?.show();
-                      },
-                      icon: const Icon(Icons.refresh)),
-                ],
-              ),
-            ),
-            context);
-      } else if (state is LoadedIssuesState) {
-        final items = state.items;
-        return withIndicator(
-            ListView.builder(
-                itemCount: items.length,
-                itemBuilder: (_, index) {
-                  if (index > items.length - 5) {
-                    Provider.of<IssuesCubit>(context, listen: false).loadMore();
-                  }
-                  final item = items[index];
-                  return Card(
-                    child: ListTile(
-                      title: Text(item.title),
-                      onTap: () => context.navigationService
-                          .openIssue(context, item.number),
-                      subtitle: Text(item.body ?? '',
-                          maxLines: 3, overflow: TextOverflow.ellipsis),
-                      trailing: Row(mainAxisSize: MainAxisSize.min, children: [
-                        TextButton(
-                          onPressed: () {
-                            context.navigationService
-                                .openEditIssue(context, item);
-                          },
-                          child: Text(context.localizations.editTitle),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            context.issuesViewModel.deleteIssue(item);
-                          },
-                          child: Text(context.localizations.deleteTitle),
-                        ),
-                      ]),
-                    ),
-                  );
-                }),
-            context);
+class _IssuesBodyContainer extends StatelessWidget {
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      GlobalKey<RefreshIndicatorState>();
+  final Function(BuildContext, IssuesState, GlobalKey<RefreshIndicatorState>)
+      bodyBuilder;
+
+  _IssuesBodyContainer({Key? key, required this.bodyBuilder}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<IssuesBloc, IssuesState>(builder: (context, state) {
+      if (state is RefreshableState) {
+        return RefreshIndicator(
+          key: _refreshIndicatorKey,
+          onRefresh: () async {
+            context.issuesCubit.refresh();
+          },
+          child: bodyBuilder(context, state, _refreshIndicatorKey),
+        );
       }
       return const Center(child: CircularProgressIndicator());
     });
-  }
-
-  Widget withIndicator(Widget widget, BuildContext context) {
-    return RefreshIndicator(
-        key: _refreshIndicatorKey,
-        color: Colors.white,
-        backgroundColor: Colors.blue,
-        strokeWidth: 4.0,
-        onRefresh: () async {
-          await Provider.of<IssuesCubit>(context, listen: false).refresh();
-        },
-        child: widget);
-  }
-
-  Consumer<IssuesViewModel> buildConsumerBody(BuildContext context) {
-    return Consumer<IssuesViewModel>(
-      builder: (_, issuesVM, child) {
-        if (issuesVM.isLoading) {
-          return const Center(child: CircularProgressIndicator());
-        }
-        final items = issuesVM.issues;
-        return ListView.builder(
-            itemCount: items.length,
-            itemBuilder: (_, index) {
-              final item = items[index];
-              return Card(
-                child: ListTile(
-                  title: Text(item.title),
-                  onTap: () =>
-                      context.navigationService.openIssue(context, item.number),
-                  subtitle: Text(item.body ?? '',
-                      maxLines: 3, overflow: TextOverflow.ellipsis),
-                  trailing: Row(mainAxisSize: MainAxisSize.min, children: [
-                    TextButton(
-                      onPressed: () {
-                        context.navigationService.openEditIssue(context, item);
-                      },
-                      child: Text(context.localizations.editTitle),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        context.issuesViewModel.deleteIssue(item);
-                      },
-                      child: Text(context.localizations.deleteTitle),
-                    ),
-                  ]),
-                ),
-              );
-            });
-      },
-    );
   }
 }

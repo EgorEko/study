@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../app_injector.dart';
 import 'issues_page.dart';
 
 class IssuesPageBuilder extends StatelessWidget {
@@ -7,6 +8,7 @@ class IssuesPageBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.issuesCubit.load();
     return IssuesPage();
   }
 }
