@@ -1,13 +1,13 @@
 import 'package:bloc_concurrency/bloc_concurrency.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stream_transform/stream_transform.dart';
+import 'package:study/common/bloc/list_events.dart';
 
+import '../../../common/bloc/list_state.dart';
 import '../../../services/api/api_service.dart';
 import '../issues_view_model.dart';
 
 part 'issues_state.dart';
-part 'issues_events.dart';
 
 const _issuesPerPage = 15;
 
@@ -17,40 +17,40 @@ EventTransformer<E> throttleDroppable<E>(Duration duration) {
   };
 }
 
-class IssuesBloc extends Bloc<LoadIssuesEvent, IssuesState> {
+class IssuesBloc extends Bloc<ListEvent, ListState> {
   final ApiService _apiService;
 
-  IssuesBloc(this._apiService) : super(const UninitializedIssuesState._()) {
-    on<RefreshIssuesEvent>(_onRefresh);
-    on<ReLoadIssuesEvent>(_onInitialLoad);
-    on<LoadMoreIssuesEvent>(_onLoadMore,
+  IssuesBloc(this._apiService) : super(const UninitializedListState()) {
+    on<RefreshListEvent>(_onRefresh);
+    on<ReloadListEvent>(_onInitialLoad);
+    on<LoadMoreListEvent>(_onLoadMore,
         transformer: throttleDroppable(const Duration(microseconds: 200)));
   }
 
   Future<void> _onInitialLoad(
-    ReLoadIssuesEvent event,
-    Emitter<IssuesState> emit,
+    ReloadListEvent event,
+    Emitter<ListState> emit,
   ) async {
-    if (state is UninitializedIssuesState && state is! LoadedIssuesState) {
-      emit(const LoadingIssuesState._());
+    if (state is UninitializedListState && state is! LoadingListState) {
+      emit(const LoadingListState());
       try {
         final issues = await _load(1);
 
         if (issues.isNotEmpty) {
-          emit(LoadedIssuesState._(issues,
-              moreAvailable: issues.length != _issuesPerPage));
+          emit(LoadedIssuesState._([...issues, ...issues, ...issues],
+              hasMore: issues.length != _issuesPerPage));
         } else {
-          emit(const EmptyIssuesState._());
+          emit(const EmptyListState());
         }
       } catch (e) {
-        emit(FailedIssuesState._(e.toString()));
+        emit(FailedListState(e.toString()));
       }
     }
   }
 
   Future<void> _onRefresh(
-    RefreshIssuesEvent event,
-    Emitter<IssuesState> emit,
+    RefreshListEvent event,
+    Emitter<ListState> emit,
   ) async {
     if (state is RefreshableState) {
       try {
@@ -58,41 +58,41 @@ class IssuesBloc extends Bloc<LoadIssuesEvent, IssuesState> {
 
         if (issues.isNotEmpty) {
           emit(LoadedIssuesState._(issues,
-              moreAvailable: issues.length != _issuesPerPage));
+              hasMore: issues.length != _issuesPerPage));
         } else {
-          emit(const EmptyIssuesState._());
+          emit(const EmptyListState());
         }
       } catch (e) {}
     }
   }
 
   Future<void> _onLoadMore(
-    LoadMoreIssuesEvent event,
-    Emitter<IssuesState> emit,
+    LoadMoreListEvent event,
+    Emitter<ListState> emit,
   ) async {
     final currentState = state;
     if (currentState is LoadedIssuesState) {
-      if (currentState.moreAvailable) {
+      if (currentState.hasMore) {
         final page = currentState.page + 1;
 
         final issues = await _load(page);
 
         emit(LoadedIssuesState._([...currentState.items, ...issues],
-            page: page, moreAvailable: issues.length != _issuesPerPage));
+            page: page, hasMore: issues.length != _issuesPerPage));
       }
     }
   }
 
-  load() {
-    add(const ReLoadIssuesEvent._());
+  void load() {
+    add(const ReloadListEvent());
   }
 
-  refresh() {
-    add(const RefreshIssuesEvent._());
+  void refresh() {
+    add(const RefreshListEvent());
   }
 
-  loadMore() {
-    add(const LoadMoreIssuesEvent._());
+  void loadMore() {
+    add(const LoadMoreListEvent());
   }
 
   Future<List<IssueModel>> _load(int page) async {

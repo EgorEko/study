@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'pages/issues/bloc/issues_cubit.dart';
+import 'pages/issues/bloc/issues_bloc.dart';
 import 'pages/issues/issues_view_model.dart';
 import 'repositories/counter_repository.dart';
 import 'services/api/api_service.dart';

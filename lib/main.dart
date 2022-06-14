@@ -7,7 +7,7 @@ import 'repositories/counter_repository.dart';
 import 'services/api/api_service.dart';
 import 'services/navigation_service.dart';
 import 'my_app.dart';
-import 'pages/issues/bloc/issues_cubit.dart';
+import 'pages/issues/bloc/issues_bloc.dart';
 
 void main() {
   const currentUserToken = String.fromEnvironment('GITHUB_USER_TOKEN');

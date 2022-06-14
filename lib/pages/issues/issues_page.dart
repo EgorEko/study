@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../app_injector.dart';
 import '../../app_strings.dart';
-import 'bloc/issues_cubit.dart';
+import '../../common/bloc/list_state.dart';
+import 'bloc/issues_bloc.dart';
 import 'widgets/empty_issues_widget.dart';
 import 'widgets/failed_issues_widget.dart';
 import 'widgets/issue_tile.dart';
@@ -19,10 +20,10 @@ class IssuesPage extends StatelessWidget {
       ),
       body: _IssuesBodyContainer(
         bodyBuilder: (context, state, refreshIndicatorKey) {
-          if (state is EmptyIssuesState) {
+          if (state is EmptyListState) {
             return EmtyIssuesWidget(
                 onRefresh: () => refreshIndicatorKey.currentState?.show());
-          } else if (state is FailedIssuesState) {
+          } else if (state is FailedListState) {
             return FailedIssuesWidget(
                 onRetry: () => refreshIndicatorKey.currentState?.show(),
                 message: state.message);
@@ -55,14 +56,14 @@ class IssuesPage extends StatelessWidget {
 class _IssuesBodyContainer extends StatelessWidget {
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       GlobalKey<RefreshIndicatorState>();
-  final Function(BuildContext, IssuesState, GlobalKey<RefreshIndicatorState>)
+  final Function(BuildContext, ListState, GlobalKey<RefreshIndicatorState>)
       bodyBuilder;
 
   _IssuesBodyContainer({Key? key, required this.bodyBuilder}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<IssuesBloc, IssuesState>(builder: (context, state) {
+    return BlocBuilder<IssuesBloc, ListState>(builder: (context, state) {
       if (state is RefreshableState) {
         return RefreshIndicator(
           key: _refreshIndicatorKey,

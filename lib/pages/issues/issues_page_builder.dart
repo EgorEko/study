@@ -9,6 +9,6 @@ class IssuesPageBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     context.issuesCubit.load();
-    return IssuesPage();
+    return const IssuesPage();
   }
 }
