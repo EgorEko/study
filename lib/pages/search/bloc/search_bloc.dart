@@ -28,7 +28,7 @@ class SearchBloc extends ListBloc<IssueModel> {
   Future<void> _search(SearchListEvent event, Emitter<ListState> emit) async {
     if (event.term.length >= 3 && state is UninitializedListState) {
       emit(const LoadingListState());
-      final items = await _doSearch(event.term, 2);
+      final items = await _doSearch(event.term, 1);
       if (items.isNotEmpty) {
         emit(FoundedIssuesState._(items, event.term));
       } else {
