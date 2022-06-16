@@ -41,6 +41,15 @@ class HomePage extends StatelessWidget {
                       context.navigationService.openIssues(context),
                   child: const Text('Issues')),
             ),
+            Container(
+              width: AppThemeExtended.of(context)!.containerWith,
+              height: Theme.of(context).containerHeight,
+              color: Colors.greenAccent,
+              child: TextButton(
+                  onPressed: () =>
+                      context.navigationService.openSearch(context),
+                  child: const Text('Search')),
+            ),
           ],
         ),
       ),

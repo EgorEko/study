@@ -40,3 +40,8 @@ class FailedListState extends ListState implements RefreshableState {
   @override
   List<Object> get props => [message];
 }
+
+class InitialLoadedListState<T> extends LoadedListState<T> {
+  const InitialLoadedListState(List<T> items, {bool hasMore = true})
+      : super(items, hasMore: hasMore);
+}

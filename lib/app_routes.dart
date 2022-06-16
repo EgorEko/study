@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:study/app_injector.dart';
 import 'package:provider/provider.dart';
-import 'package:study/pages/new_issue/new_issue_page_builder.dart';
-import 'package:study/services/api/responses/issue_dto.dart';
 
+import 'app_injector.dart';
+import 'pages/new_issue/new_issue_page_builder.dart';
+import 'services/api/responses/issue_dto.dart';
 import 'app_routes_names.dart';
 import 'pages/edit_issue/edit_issue_page_builder.dart';
 import 'pages/home/home_page.dart';
 import 'pages/home/home_page_view_model.dart';
 import 'pages/issue_details/issue_details_page.dart';
 import 'pages/issues/issues_page_builder.dart';
+import 'pages/search/search_page/search_page_builder.dart';
 import 'services/increment_service.dart';
 import 'services/navigation_service.dart';
 import 'title_service.dart';
@@ -40,6 +41,14 @@ Route? onGenerateAppRoute(RouteSettings settings) {
       settings: settings,
       builder: (context) {
         return const EditIssuePageBuilder();
+      },
+    );
+  }
+  if (settings.name == searchRouteName) {
+    return MaterialPageRoute<IssueDTO?>(
+      settings: settings,
+      builder: (context) {
+        return const SearchPageBuilder();
       },
     );
   }

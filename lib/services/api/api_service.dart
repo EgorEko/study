@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'responses/issue_dto.dart';
+import 'responses/search_issues_dto.dart';
 import 'responses/user_dto.dart';
 
 part 'issues_api.dart';

@@ -68,4 +68,21 @@ extension IssuesApi on ApiService {
     final response = await _client.get(url, headers: _defaultHeaders);
     return _parseObject(response, (e) => IssueDTO.fromJson(e));
   }
+
+  Future<List<IssueDTO>> search(
+      {required String term, int perPage = 15, int? page}) async {
+    return [];
+  }
+
+  Future<List<IssueDTO>> searchIssues(
+      {required String query, int perPage = 15, int? page}) async {
+    final url = _baseUri
+        .replace(path: '/search/issues', queryParameters: <String, dynamic>{
+      'q': query,
+      'per_page': perPage.toString(),
+      if (page != null) 'page': page.toString()
+    });
+    final response = await _client.get(url, headers: _defaultHeaders);
+    return _parseObject(response, (e) => SearchIssuesDTO.fromJson(e)).items;
+  }
 }

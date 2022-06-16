@@ -26,6 +26,10 @@ class NavigationService {
     _pushNamed<IssueDTO?>(context, editIssueRouteName, arguments: issue);
   }
 
+  void openSearch(BuildContext context) {
+    _pushNamed<IssueDTO?>(context, searchRouteName);
+  }
+
   Future<T?> _pushNamed<T extends Object?>(
     BuildContext context,
     String routeName, {

@@ -8,8 +8,9 @@ abstract class ListEvent extends Equatable {
 }
 
 class RefreshListEvent extends ListEvent {
+  final String tag;
 
-  const RefreshListEvent();
+  const RefreshListEvent(this.tag);
 }
 
 class LoadMoreListEvent extends ListEvent {
@@ -25,6 +26,6 @@ class SearchListEvent extends ListEvent {
 
   const SearchListEvent(this.term);
 
-    @override
+  @override
   List<Object?> get props => [term];
 }

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:study/pages/issues/issues_view_model.dart';
 
 import '../../app_injector.dart';
 import '../../app_strings.dart';
 import '../../common/bloc/list_state.dart';
+import '../../common/widgets/empty_list_widget.dart';
+import '../../common/widgets/failed_list_widget.dart';
 import 'bloc/issues_bloc.dart';
-import 'widgets/empty_issues_widget.dart';
-import 'widgets/failed_issues_widget.dart';
 import 'widgets/issue_tile.dart';
 
 class IssuesPage extends StatelessWidget {
@@ -21,13 +22,16 @@ class IssuesPage extends StatelessWidget {
       body: _IssuesBodyContainer(
         bodyBuilder: (context, state, refreshIndicatorKey) {
           if (state is EmptyListState) {
-            return EmtyIssuesWidget(
-                onRefresh: () => refreshIndicatorKey.currentState?.show());
+            return EmptyListWidget(
+                title: 'No issues! Create one tostart play',
+                icon: Icons.add,
+                onAction: () =>
+                    context.navigationService.openNewIssue(context));
           } else if (state is FailedListState) {
-            return FailedIssuesWidget(
+            return FailedListWidget(
                 onRetry: () => refreshIndicatorKey.currentState?.show(),
                 message: state.message);
-          } else if (state is LoadedIssuesState) {
+          } else if (state is LoadedListState<IssueModel>) {
             final items = state.items;
             return ListView.builder(
                 itemCount: items.length,
