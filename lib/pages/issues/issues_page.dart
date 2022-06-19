@@ -4,7 +4,7 @@ import 'package:study/pages/issues/issues_view_model.dart';
 
 import '../../app_injector.dart';
 import '../../app_strings.dart';
-import '../../common/bloc/list_state.dart';
+import '../../common/bloc/list_states.dart';
 import '../../common/widgets/empty_list_widget.dart';
 import '../../common/widgets/failed_list_widget.dart';
 import 'bloc/issues_bloc.dart';
@@ -37,7 +37,7 @@ class IssuesPage extends StatelessWidget {
                 itemCount: items.length,
                 itemBuilder: (_, index) {
                   if (index > items.length - 5) {
-                    context.issuesCubit.loadMore();
+                    context.issuesBloc.loadMore();
                   }
                   final item = items[index];
                   return IssueTile(data: item);
@@ -72,7 +72,7 @@ class _IssuesBodyContainer extends StatelessWidget {
         return RefreshIndicator(
           key: _refreshIndicatorKey,
           onRefresh: () async {
-            context.issuesCubit.refresh();
+            context.issuesBloc.refresh();
           },
           child: bodyBuilder(context, state, _refreshIndicatorKey),
         );

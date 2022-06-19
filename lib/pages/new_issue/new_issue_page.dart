@@ -47,8 +47,8 @@ class _NewIssuePageState extends State<NewIssuePage> {
                         final title = titleController.text;
                         final body = bodyController.text;
                         try {
-                          context.issuesViewModel
-                              .createNewIssue(title: title, body: body);
+                          context.issuesBloc
+                              .createIssue(title: title, body: body);
                           Navigator.of(context).pop();
                         } finally {
                           setState(() {
@@ -70,8 +70,8 @@ class _NewIssuePageState extends State<NewIssuePage> {
 
   @override
   void dispose() {
-    super.dispose();
     titleController.dispose();
     bodyController.dispose();
+    super.dispose();
   }
 }

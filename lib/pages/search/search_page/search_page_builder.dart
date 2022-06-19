@@ -10,7 +10,7 @@ class SearchPageBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.issuesCubit.load();
+    context.issuesBloc.load();
     return BlocProvider(
         create: (BuildContext context) {
           return SearchBloc(context.apiService);

@@ -4,7 +4,7 @@ import 'package:study/app_injector.dart';
 import 'package:study/app_strings.dart';
 import 'package:study/common/widgets/failed_list_widget.dart';
 
-import '../../../common/bloc/list_state.dart';
+import '../../../common/bloc/list_states.dart';
 import '../../../common/widgets/empty_list_widget.dart';
 import '../../issues/issues_view_model.dart';
 import '../../issues/widgets/issue_tile.dart';
@@ -79,7 +79,7 @@ class _IssuesBodyContainer extends StatelessWidget {
         return RefreshIndicator(
           key: _refreshIndicatorKey,
           onRefresh: () async {
-            context.issuesCubit.refresh();
+            context.issuesBloc.refresh();
             await Future.delayed(const Duration(milliseconds: 300));
           },
           child: bodyBuilder(context, state, _refreshIndicatorKey),

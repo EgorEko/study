@@ -5,7 +5,7 @@ import 'package:stream_transform/stream_transform.dart';
 
 import '../../../common/bloc/list_bloc.dart';
 import '../../../common/bloc/list_events.dart';
-import '../../../common/bloc/list_state.dart';
+import '../../../common/bloc/list_states.dart';
 import '../../../services/api/api_service.dart';
 import '../../issues/issues_view_model.dart';
 

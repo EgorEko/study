@@ -15,7 +15,7 @@
             "type": "dart",
             "args": [
                 "--dart-define",
-                "GITHUB_USER_TOKEN=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"]
+                "GITHUB_USER_TOKEN=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"]
         },
         {
             "name": "dummy",

@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stream_transform/stream_transform.dart';
 
 import 'list_events.dart';
-import 'list_state.dart';
+import 'list_states.dart';
 
 EventTransformer<E> throttleDroppable<E>(Duration duration) {
   return (events, mapper) {

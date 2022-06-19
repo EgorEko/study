@@ -26,7 +26,7 @@ class IssueTile extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              context.issuesViewModel.deleteIssue(data);
+              context.issuesBloc.deleteIssue(data);
             },
             child: Text(context.localizations.deleteTitle),
           ),

@@ -50,7 +50,7 @@ class IssuesViewModel extends ChangeNotifier {
 
   void updateIssue(IssueModel issue, {required String title, String? body}) {
     final editIndex = _issues?.indexWhere((e) => e.number == issue.number);
-    _issues?[editIndex!] = IssueModel._(issue.number, title, body);
+    _issues?[editIndex!] = IssueModel(issue.number, title, body);
 
     notifyListeners();
     _apiService.updateIssue(
@@ -67,9 +67,19 @@ class IssueModel {
   final int number;
   final String? body;
 
-  IssueModel._(this.number, this.title, this.body);
+  IssueModel(this.number, this.title, this.body);
 
   factory IssueModel.fromIssueDTO(IssueDTO issue) {
-    return IssueModel._(issue.number, issue.title, issue.body);
+    return IssueModel(issue.number, issue.title, issue.body);
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is IssueModel &&
+          runtimeType == other.runtimeType &&
+          number == other.number;
+
+  @override
+  int get hashCode => number.hashCode;
 }

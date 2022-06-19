@@ -24,7 +24,7 @@ extension AppInjector on BuildContext {
   IssuesViewModel get issuesViewModel =>
       Provider.of<IssuesViewModel>(this, listen: false);
 
-  IssuesBloc get issuesCubit => Provider.of<IssuesBloc>(this, listen: false);
+  IssuesBloc get issuesBloc => Provider.of<IssuesBloc>(this, listen: false);
 
   SearchBloc get searchBloc => Provider.of<SearchBloc>(this, listen: false);
 }

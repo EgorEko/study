@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:equatable/equatable.dart';
 
 abstract class RefreshableState {}
@@ -6,7 +8,7 @@ abstract class ListState extends Equatable {
   const ListState._();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class UninitializedListState extends ListState {
@@ -19,13 +21,17 @@ class LoadingListState extends ListState {
 
 abstract class LoadedListState<T> extends ListState
     implements RefreshableState {
-  final List<T> items;
+  final UnmodifiableListView<T> _items;
   final bool hasMore;
 
-  const LoadedListState(this.items, {this.hasMore = true}) : super._();
+  List<T> get items => _items.toList();
+
+  LoadedListState(List<T> items, {this.hasMore = true})
+      : _items = UnmodifiableListView(items),
+        super._();
 
   @override
-  List<Object> get props => [items];
+  List<Object?> get props => [items, hasMore];
 }
 
 class EmptyListState extends ListState implements RefreshableState {
@@ -38,10 +44,10 @@ class FailedListState extends ListState implements RefreshableState {
   const FailedListState(this.message) : super._();
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }
 
 class InitialLoadedListState<T> extends LoadedListState<T> {
-  const InitialLoadedListState(List<T> items, {bool hasMore = true})
+  InitialLoadedListState(List<T> items, {bool hasMore = true})
       : super(items, hasMore: hasMore);
 }
