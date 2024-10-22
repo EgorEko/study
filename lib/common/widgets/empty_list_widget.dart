@@ -5,11 +5,10 @@ class EmptyListWidget extends StatelessWidget {
   final IconData icon;
   final VoidCallback onAction;
   const EmptyListWidget(
-      {Key? key,
+      {super.key,
       required this.title,
       required this.icon,
-      required this.onAction})
-      : super(key: key);
+      required this.onAction});
 
   @override
   Widget build(BuildContext context) {

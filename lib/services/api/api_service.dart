@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:http/http.dart' as http;
 import 'responses/issue_dto.dart';
@@ -22,7 +23,7 @@ class ApiService {
   }
 
   List<T> _parseList<T>(http.Response response, T Function(dynamic) parser) {
-    print(response.statusCode);
+    log(response.statusCode.toString());
     if (response.statusCode == 200) {
       final body = response.body;
       final List<dynamic> result = jsonDecode(body);

@@ -7,7 +7,7 @@ import 'app_routes.dart';
 
 class MyApp extends StatelessWidget {
   final String initialRoute;
-  const MyApp({Key? key, this.initialRoute = '/'}) : super(key: key);
+  const MyApp({super.key, this.initialRoute = '/'});
 
   // This widget is the root of your application.
   @override

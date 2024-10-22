@@ -7,7 +7,7 @@ import '../issues_view_model.dart';
 class IssueTile extends StatelessWidget {
   final IssueModel data;
 
-  const IssueTile({Key? key, required this.data}) : super(key: key);
+  const IssueTile({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {

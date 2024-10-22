@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:study/app_injector.dart';
 
 class NewIssuePage extends StatefulWidget {
-  const NewIssuePage({Key? key}) : super(key: key);
+  const NewIssuePage({super.key});
 
   @override
   State<NewIssuePage> createState() => _NewIssuePageState();

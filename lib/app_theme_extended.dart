@@ -4,10 +4,10 @@ class AppThemeExtended extends InheritedWidget {
   final double containerWith;
 
   const AppThemeExtended({
-    Key? key,
+    super.key,
     this.containerWith = 100,
-    required Widget child,
-  }) : super(key: key, child: child);
+    required super.child,
+  });
 
   static AppThemeExtended? of(BuildContext context) {
     final AppThemeExtended? result =

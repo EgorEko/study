@@ -11,7 +11,7 @@ import 'bloc/issues_bloc.dart';
 import 'widgets/issue_tile.dart';
 
 class IssuesPage extends StatelessWidget {
-  const IssuesPage({Key? key}) : super(key: key);
+  const IssuesPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +63,7 @@ class _IssuesBodyContainer extends StatelessWidget {
   final Function(BuildContext, ListState, GlobalKey<RefreshIndicatorState>)
       bodyBuilder;
 
-  _IssuesBodyContainer({Key? key, required this.bodyBuilder}) : super(key: key);
+  _IssuesBodyContainer({required this.bodyBuilder});
 
   @override
   Widget build(BuildContext context) {

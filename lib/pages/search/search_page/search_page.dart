@@ -11,7 +11,7 @@ import '../../issues/widgets/issue_tile.dart';
 import '../bloc/search_bloc.dart';
 
 class SearchPage extends StatelessWidget {
-  const SearchPage({Key? key}) : super(key: key);
+  const SearchPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +70,7 @@ class _IssuesBodyContainer extends StatelessWidget {
   final Function(BuildContext, ListState, GlobalKey<RefreshIndicatorState>)
       bodyBuilder;
 
-  _IssuesBodyContainer({Key? key, required this.bodyBuilder}) : super(key: key);
+  _IssuesBodyContainer({required this.bodyBuilder});
 
   @override
   Widget build(BuildContext context) {

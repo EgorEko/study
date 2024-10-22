@@ -5,7 +5,7 @@ import 'package:study/pages/issues/issues_view_model.dart';
 
 class EditIssuePage extends StatefulWidget {
   final IssueModel issue;
-  const EditIssuePage({Key? key, required this.issue}) : super(key: key);
+  const EditIssuePage({super.key, required this.issue});
 
   @override
   State<EditIssuePage> createState() => _NewIssuePageState();

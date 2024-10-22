@@ -48,6 +48,5 @@ class FailedListState extends ListState implements RefreshableState {
 }
 
 class InitialLoadedListState<T> extends LoadedListState<T> {
-  InitialLoadedListState(List<T> items, {bool hasMore = true})
-      : super(items, hasMore: hasMore);
+  InitialLoadedListState(super.items, {super.hasMore});
 }

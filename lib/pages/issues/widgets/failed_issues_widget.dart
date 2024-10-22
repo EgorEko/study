@@ -4,8 +4,7 @@ class FailedIssuesWidget extends StatelessWidget {
   final VoidCallback onRetry;
   final String message;
   const FailedIssuesWidget(
-      {Key? key, required this.onRetry, required this.message})
-      : super(key: key);
+      {super.key, required this.onRetry, required this.message});
 
   @override
   Widget build(BuildContext context) {

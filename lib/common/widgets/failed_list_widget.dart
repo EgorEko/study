@@ -5,8 +5,7 @@ class FailedListWidget extends StatelessWidget {
   final String message;
 
   const FailedListWidget(
-      {Key? key, required this.onRetry, required this.message})
-      : super(key: key);
+      {super.key, required this.onRetry, required this.message});
 
   @override
   Widget build(BuildContext context) {
