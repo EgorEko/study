@@ -4,9 +4,9 @@ import 'title_service.dart';
 
 class ServiceLocator extends InheritedWidget {
   const ServiceLocator({
-    super.key,
     required this.titleService,
     required super.child,
+    super.key,
   });
 
   final TitleService titleService;

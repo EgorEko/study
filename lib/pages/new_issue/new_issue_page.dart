@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:study/app_injector.dart';
+import '../../app_injector.dart';
 
 class NewIssuePage extends StatefulWidget {
   const NewIssuePage({super.key});
@@ -21,25 +21,25 @@ class _NewIssuePageState extends State<NewIssuePage> {
         title: const Text('New Issues'),
       ),
       body: Center(
-          child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: _creating
-            ? const Center(
-                child: CupertinoActivityIndicator(),
-              )
-            : Column(
-                children: [
-                  TextField(
-                    controller: titleController,
-                    decoration:
-                        const InputDecoration(hintText: 'Type issue title'),
-                  ),
-                  TextField(
-                    controller: bodyController,
-                    decoration:
-                        const InputDecoration(hintText: 'Type issue body'),
-                  ),
-                  TextButton(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: _creating
+              ? const Center(
+                  child: CupertinoActivityIndicator(),
+                )
+              : Column(
+                  children: [
+                    TextField(
+                      controller: titleController,
+                      decoration:
+                          const InputDecoration(hintText: 'Type issue title'),
+                    ),
+                    TextField(
+                      controller: bodyController,
+                      decoration:
+                          const InputDecoration(hintText: 'Type issue body'),
+                    ),
+                    TextButton(
                       onPressed: () {
                         setState(() {
                           _creating = true;
@@ -56,10 +56,12 @@ class _NewIssuePageState extends State<NewIssuePage> {
                           });
                         }
                       },
-                      child: const Text('Create'))
-                ],
-              ),
-      )),
+                      child: const Text('Create'),
+                    ),
+                  ],
+                ),
+        ),
+      ),
     );
   }
 

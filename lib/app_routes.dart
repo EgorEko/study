@@ -65,7 +65,7 @@ final Map<String, WidgetBuilder> appRoutes = {
           ),
           Provider(
             create: (_) => TitleService(),
-          )
+          ),
         ],
         child: const HomePage(),
       ),

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:study/services/increment_service.dart';
+import '../../services/increment_service.dart';
 
 class HomePageViewModel extends ChangeNotifier {
-  final IncrementService _incrementService;
-
   HomePageViewModel(this._incrementService);
+  final IncrementService _incrementService;
 
   String get currentValueText => _incrementService.currentValue.toString();
 

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 
 class AppThemeExtended extends InheritedWidget {
-  final double containerWith;
-
   const AppThemeExtended({
+    required super.child,
     super.key,
     this.containerWith = 100,
-    required super.child,
   });
+  final double containerWith;
 
   static AppThemeExtended? of(BuildContext context) {
     final AppThemeExtended? result =

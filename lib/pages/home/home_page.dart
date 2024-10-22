@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:study/app_injector.dart';
-import 'package:study/app_theme_extended.dart';
+import '../../app_injector.dart';
+import '../../app_theme_extended.dart';
 
 import 'home_page_view_model.dart';
 
@@ -37,18 +37,18 @@ class HomePage extends StatelessWidget {
               height: Theme.of(context).containerHeight,
               color: Colors.greenAccent,
               child: TextButton(
-                  onPressed: () =>
-                      context.navigationService.openIssues(context),
-                  child: const Text('Issues')),
+                onPressed: () => context.navigationService.openIssues(context),
+                child: const Text('Issues'),
+              ),
             ),
             Container(
               width: AppThemeExtended.of(context)!.containerWith,
               height: Theme.of(context).containerHeight,
               color: Colors.greenAccent,
               child: TextButton(
-                  onPressed: () =>
-                      context.navigationService.openSearch(context),
-                  child: const Text('Search')),
+                onPressed: () => context.navigationService.openSearch(context),
+                child: const Text('Search'),
+              ),
             ),
           ],
         ),

@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
-import 'package:study/services/api/api_service.dart';
-import 'package:study/services/api/responses/issue_dto.dart';
+import '../../services/api/api_service.dart';
+import '../../services/api/responses/issue_dto.dart';
 
 class IssuesViewModel extends ChangeNotifier {
+  IssuesViewModel(this._apiService);
   final ApiService _apiService;
   List<IssueModel>? _issues;
-
-  IssuesViewModel(this._apiService);
 
   List<IssueModel> get issues => _issues ?? [];
 
@@ -43,9 +42,10 @@ class IssuesViewModel extends ChangeNotifier {
     _issues?.remove(item);
     notifyListeners();
     _apiService.closeIssue(
-        owner: 'EgorEko',
-        repo: 'study',
-        issue: IssueDTO.fromNumber(item.number));
+      owner: 'EgorEko',
+      repo: 'study',
+      issue: IssueDTO.fromNumber(item.number),
+    );
   }
 
   void updateIssue(IssueModel issue, {required String title, String? body}) {
@@ -54,24 +54,24 @@ class IssuesViewModel extends ChangeNotifier {
 
     notifyListeners();
     _apiService.updateIssue(
-        owner: 'EgorEko',
-        repo: 'study',
-        issue: IssueDTO.fromNumber(issue.number),
-        title: title,
-        body: body);
+      owner: 'EgorEko',
+      repo: 'study',
+      issue: IssueDTO.fromNumber(issue.number),
+      title: title,
+      body: body,
+    );
   }
 }
 
 class IssueModel {
-  final String title;
-  final int number;
-  final String? body;
-
   IssueModel(this.number, this.title, this.body);
 
   factory IssueModel.fromIssueDTO(IssueDTO issue) {
     return IssueModel(issue.number, issue.title, issue.body);
   }
+  final String title;
+  final int number;
+  final String? body;
 
   @override
   bool operator ==(Object other) =>

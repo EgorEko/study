@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:study/pages/issues/issues_view_model.dart';
+import 'issues_view_model.dart';
 
 import '../../app_injector.dart';
 import '../../app_strings.dart';
@@ -23,25 +23,27 @@ class IssuesPage extends StatelessWidget {
         bodyBuilder: (context, state, refreshIndicatorKey) {
           if (state is EmptyListState) {
             return EmptyListWidget(
-                title: 'No issues! Create one to start play',
-                icon: Icons.add,
-                onAction: () =>
-                    context.navigationService.openNewIssue(context));
+              title: 'No issues! Create one to start play',
+              icon: Icons.add,
+              onAction: () => context.navigationService.openNewIssue(context),
+            );
           } else if (state is FailedListState) {
             return FailedListWidget(
-                onRetry: () => refreshIndicatorKey.currentState?.show(),
-                message: state.message);
+              onRetry: () => refreshIndicatorKey.currentState?.show(),
+              message: state.message,
+            );
           } else if (state is LoadedListState<IssueModel>) {
             final items = state.items;
             return ListView.builder(
-                itemCount: items.length,
-                itemBuilder: (_, index) {
-                  if (index > items.length - 5) {
-                    context.issuesBloc.loadMore();
-                  }
-                  final item = items[index];
-                  return IssueTile(data: item);
-                });
+              itemCount: items.length,
+              itemBuilder: (_, index) {
+                if (index > items.length - 5) {
+                  context.issuesBloc.loadMore();
+                }
+                final item = items[index];
+                return IssueTile(data: item);
+              },
+            );
           }
           return const SizedBox.shrink();
         },
@@ -58,26 +60,27 @@ class IssuesPage extends StatelessWidget {
 }
 
 class _IssuesBodyContainer extends StatelessWidget {
+  _IssuesBodyContainer({required this.bodyBuilder});
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       GlobalKey<RefreshIndicatorState>();
   final Function(BuildContext, ListState, GlobalKey<RefreshIndicatorState>)
       bodyBuilder;
 
-  _IssuesBodyContainer({required this.bodyBuilder});
-
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<IssuesBloc, ListState>(builder: (context, state) {
-      if (state is RefreshableState) {
-        return RefreshIndicator(
-          key: _refreshIndicatorKey,
-          onRefresh: () async {
-            context.issuesBloc.refresh();
-          },
-          child: bodyBuilder(context, state, _refreshIndicatorKey),
-        );
-      }
-      return const Center(child: CircularProgressIndicator());
-    });
+    return BlocBuilder<IssuesBloc, ListState>(
+      builder: (context, state) {
+        if (state is RefreshableState) {
+          return RefreshIndicator(
+            key: _refreshIndicatorKey,
+            onRefresh: () async {
+              context.issuesBloc.refresh();
+            },
+            child: bodyBuilder(context, state, _refreshIndicatorKey),
+          );
+        }
+        return const Center(child: CircularProgressIndicator());
+      },
+    );
   }
 }

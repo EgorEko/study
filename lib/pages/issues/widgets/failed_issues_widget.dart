@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 
 class FailedIssuesWidget extends StatelessWidget {
+  const FailedIssuesWidget({
+    required this.onRetry,
+    required this.message,
+    super.key,
+  });
+
   final VoidCallback onRetry;
   final String message;
-  const FailedIssuesWidget(
-      {super.key, required this.onRetry, required this.message});
 
   @override
   Widget build(BuildContext context) {

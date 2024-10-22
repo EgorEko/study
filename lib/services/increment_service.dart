@@ -1,12 +1,11 @@
-import 'package:study/repositories/counter_repository.dart';
+import '../repositories/counter_repository.dart';
 
 class IncrementService {
+  IncrementService(this._counterRepository, {this.step = 1});
   final CounterRepository _counterRepository;
 
   final int step;
   int _value = 0;
-
-  IncrementService(this._counterRepository, {this.step = 1});
 
   int get currentValue => _value;
 

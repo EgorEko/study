@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:study/app_injector.dart';
-import 'package:study/pages/issues/issues_view_model.dart';
+import '../../app_injector.dart';
+import '../issues/issues_view_model.dart';
 
 class EditIssuePage extends StatefulWidget {
+  const EditIssuePage({required this.issue, super.key});
+
   final IssueModel issue;
-  const EditIssuePage({super.key, required this.issue});
 
   @override
   State<EditIssuePage> createState() => _NewIssuePageState();
@@ -23,25 +24,25 @@ class _NewIssuePageState extends State<EditIssuePage> {
         title: const Text('New Issues'),
       ),
       body: Center(
-          child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: _creating
-            ? const Center(
-                child: CupertinoActivityIndicator(),
-              )
-            : Column(
-                children: [
-                  TextField(
-                    controller: titleController,
-                    decoration:
-                        const InputDecoration(hintText: 'Type issue title'),
-                  ),
-                  TextField(
-                    controller: bodyController,
-                    decoration:
-                        const InputDecoration(hintText: 'Type issue body'),
-                  ),
-                  TextButton(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: _creating
+              ? const Center(
+                  child: CupertinoActivityIndicator(),
+                )
+              : Column(
+                  children: [
+                    TextField(
+                      controller: titleController,
+                      decoration:
+                          const InputDecoration(hintText: 'Type issue title'),
+                    ),
+                    TextField(
+                      controller: bodyController,
+                      decoration:
+                          const InputDecoration(hintText: 'Type issue body'),
+                    ),
+                    TextButton(
                       onPressed: () {
                         setState(() {
                           _creating = true;
@@ -49,8 +50,11 @@ class _NewIssuePageState extends State<EditIssuePage> {
                         final title = titleController.text;
                         final body = bodyController.text;
                         try {
-                          context.issuesViewModel.updateIssue(widget.issue,
-                              title: title, body: body);
+                          context.issuesViewModel.updateIssue(
+                            widget.issue,
+                            title: title,
+                            body: body,
+                          );
                           Navigator.of(context).pop();
                         } finally {
                           setState(() {
@@ -58,10 +62,12 @@ class _NewIssuePageState extends State<EditIssuePage> {
                           });
                         }
                       },
-                      child: const Text('Update'))
-                ],
-              ),
-      )),
+                      child: const Text('Update'),
+                    ),
+                  ],
+                ),
+        ),
+      ),
     );
   }
 
@@ -69,7 +75,7 @@ class _NewIssuePageState extends State<EditIssuePage> {
   void initState() {
     super.initState();
     titleController.text = widget.issue.title;
-    bodyController.text = widget.issue.body ?? "";
+    bodyController.text = widget.issue.body ?? '';
   }
 
   @override

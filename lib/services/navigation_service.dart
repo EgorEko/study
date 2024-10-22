@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:study/services/api/responses/issue_dto.dart';
+import 'api/responses/issue_dto.dart';
 
 import '../app_routes_names.dart';
 import '../pages/issues/issues_view_model.dart';
@@ -14,8 +14,11 @@ class NavigationService {
   }
 
   void openIssue(BuildContext context, int number) {
-    _pushNamed(context, issueRouteName,
-        arguments: IssueDetailsArguments._(number));
+    _pushNamed(
+      context,
+      issueRouteName,
+      arguments: IssueDetailsArguments._(number),
+    );
   }
 
   void openNewIssue(BuildContext context) {
@@ -41,9 +44,8 @@ class NavigationService {
 }
 
 class IssueDetailsArguments {
-  final int number;
-
   IssueDetailsArguments._(this.number);
+  final int number;
 
   @override
   String toString() {

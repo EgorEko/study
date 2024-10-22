@@ -18,12 +18,14 @@ EventTransformer<E> debounceDroppable<E>(Duration duration) {
 }
 
 class SearchBloc extends ListBloc<IssueModel> {
-  final ApiService _apiService;
-
   SearchBloc(this._apiService) : super() {
-    on<SearchListEvent>(_search,
-        transformer: debounceDroppable(const Duration(milliseconds: 300)));
+    on<SearchListEvent>(
+      _search,
+      transformer: debounceDroppable(const Duration(milliseconds: 300)),
+    );
   }
+
+  final ApiService _apiService;
 
   Future<void> _search(SearchListEvent event, Emitter<ListState> emit) async {
     if (event.term.length >= 3 && state is UninitializedListState) {
@@ -62,10 +64,15 @@ class SearchBloc extends ListBloc<IssueModel> {
 
   @override
   LoadedListState<IssueModel> onCreateLoadedState(
-      LoadedListState<IssueModel> state, List<IssueModel> items) {
+    LoadedListState<IssueModel> state,
+    List<IssueModel> items,
+  ) {
     if (state is FoundedIssuesState) {
-      return FoundedIssuesState._([...state.items, ...items], state.term,
-          page: state.page + 1);
+      return FoundedIssuesState._(
+        [...state.items, ...items],
+        state.term,
+        page: state.page + 1,
+      );
     }
     return state;
   }

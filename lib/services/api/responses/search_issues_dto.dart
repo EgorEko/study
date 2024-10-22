@@ -1,8 +1,6 @@
-import 'package:study/services/api/responses/issue_dto.dart';
+import 'issue_dto.dart';
 
 class SearchIssuesDTO {
-  final List<IssueDTO> items;
-
   SearchIssuesDTO._(this.items);
 
   factory SearchIssuesDTO.fromJson(Map<String, dynamic> json) {
@@ -10,4 +8,5 @@ class SearchIssuesDTO {
     final items = jsonItem.map((e) => IssueDTO.fromJson(e)).toList();
     return SearchIssuesDTO._(items);
   }
+  final List<IssueDTO> items;
 }

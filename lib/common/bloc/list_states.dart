@@ -21,14 +21,13 @@ class LoadingListState extends ListState {
 
 abstract class LoadedListState<T> extends ListState
     implements RefreshableState {
+  LoadedListState(List<T> items, {this.hasMore = true})
+      : _items = UnmodifiableListView(items),
+        super._();
   final UnmodifiableListView<T> _items;
   final bool hasMore;
 
   List<T> get items => _items.toList();
-
-  LoadedListState(List<T> items, {this.hasMore = true})
-      : _items = UnmodifiableListView(items),
-        super._();
 
   @override
   List<Object?> get props => [items, hasMore];
@@ -39,9 +38,8 @@ class EmptyListState extends ListState implements RefreshableState {
 }
 
 class FailedListState extends ListState implements RefreshableState {
-  final String message;
-
   const FailedListState(this.message) : super._();
+  final String message;
 
   @override
   List<Object?> get props => [message];

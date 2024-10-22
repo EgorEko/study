@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:study/app_theme_extended.dart';
+import 'app_theme_extended.dart';
 
 import 'app_routes.dart';
 
 class MyApp extends StatelessWidget {
-  final String initialRoute;
   const MyApp({super.key, this.initialRoute = '/'});
+  final String initialRoute;
 
   // This widget is the root of your application.
   @override
@@ -19,12 +19,13 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         darkTheme: ThemeData(
-            colorScheme: const ColorScheme.dark(
-              secondary: Colors.deepOrangeAccent,
-            ),
-            appBarTheme: const AppBarTheme(
-              titleTextStyle: TextStyle(fontSize: 12, color: Colors.white),
-            )),
+          colorScheme: const ColorScheme.dark(
+            secondary: Colors.deepOrangeAccent,
+          ),
+          appBarTheme: const AppBarTheme(
+            titleTextStyle: TextStyle(fontSize: 12, color: Colors.white),
+          ),
+        ),
         localizationsDelegates: const [
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,

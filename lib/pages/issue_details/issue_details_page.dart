@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
 class IssueDetailsPage extends StatelessWidget {
+  const IssueDetailsPage({required this.issueNumber, super.key});
   final int issueNumber;
-
-  const IssueDetailsPage({super.key, required this.issueNumber});
 
   @override
   Widget build(BuildContext context) {

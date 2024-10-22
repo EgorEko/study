@@ -13,25 +13,32 @@ part 'issues_events.dart';
 //TODO: create, edit, delete
 
 class IssuesBloc extends ListBloc<IssueModel> {
-  final ApiService _apiService;
-  final Map<int, DateTime> _deletedIssues = {};
-  final Map<int, IssueModel> _pendingIssues = {};
-
   IssuesBloc(this._apiService) : super() {
     on<CloseIssueListEvent>(_close);
     on<CreateIssueListEvent>(_create);
   }
+  final ApiService _apiService;
+  final Map<int, DateTime> _deletedIssues = {};
+  final Map<int, IssueModel> _pendingIssues = {};
 
   @override
   LoadedListState<IssueModel> onCreateLoadedState(
-      LoadedListState<IssueModel> state, List<IssueModel> items) {
+    LoadedListState<IssueModel> state,
+    List<IssueModel> items,
+  ) {
     if (state is LoadedIssuesState) {
-      return LoadedIssuesState._([...state.items, ...items],
-          page: state.page + 1, hasMore: items.length != itemsButch);
+      return LoadedIssuesState._(
+        [...state.items, ...items],
+        page: state.page + 1,
+        hasMore: items.length != itemsButch,
+      );
     }
     if (state is InitialLoadedListState<IssueModel>) {
-      return LoadedIssuesState._([...state.items, ...items],
-          page: 2, hasMore: items.length != itemsButch);
+      return LoadedIssuesState._(
+        [...state.items, ...items],
+        page: 2,
+        hasMore: items.length != itemsButch,
+      );
     }
     return state;
   }
@@ -69,15 +76,22 @@ class IssuesBloc extends ListBloc<IssueModel> {
   }
 
   Future<void> _close(
-      CloseIssueListEvent event, Emitter<ListState> emitter) async {
+    CloseIssueListEvent event,
+    Emitter<ListState> emitter,
+  ) async {
     _deletedIssues[event.data.number] = DateTime.now();
     final currentState = state;
     if (currentState is LoadedIssuesState) {
       final items =
           currentState.items.whereNot((e) => e.number == event.data.number);
 
-      emitter(LoadedIssuesState._([...items],
-          page: currentState.page, hasMore: currentState.hasMore));
+      emitter(
+        LoadedIssuesState._(
+          [...items],
+          page: currentState.page,
+          hasMore: currentState.hasMore,
+        ),
+      );
     }
     /*await _apiService.closeIssue(
         owner: 'EgorEko',
@@ -86,7 +100,9 @@ class IssuesBloc extends ListBloc<IssueModel> {
   }
 
   Future<void> _create(
-      CreateIssueListEvent event, Emitter<ListState> emitter) async {
+    CreateIssueListEvent event,
+    Emitter<ListState> emitter,
+  ) async {
     final newIssue = IssueModel(0, event.title, event.body);
     _pendingIssues.putIfAbsent(newIssue.number, () => newIssue);
 
@@ -94,8 +110,13 @@ class IssuesBloc extends ListBloc<IssueModel> {
     if (currentState is LoadedIssuesState) {
       final items = currentState.items;
 
-      emitter(LoadedIssuesState._([...items, newIssue],
-          page: currentState.page, hasMore: currentState.hasMore));
+      emitter(
+        LoadedIssuesState._(
+          [...items, newIssue],
+          page: currentState.page,
+          hasMore: currentState.hasMore,
+        ),
+      );
     }
   }
   /*final result = await _apiService.createIssue(

@@ -24,7 +24,7 @@ void main() {
           create: (_) => NavigationService(),
         ),
         ChangeNotifierProvider(create: (_) => IssuesViewModel(apiService)),
-        BlocProvider(create: (_) => IssuesBloc(apiService))
+        BlocProvider(create: (_) => IssuesBloc(apiService)),
       ],
       child: const MyApp(
         initialRoute: '/',

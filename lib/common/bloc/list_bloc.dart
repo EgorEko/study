@@ -18,8 +18,10 @@ abstract class ListBloc<T> extends Bloc<ListEvent, ListState> {
   ListBloc() : super(const UninitializedListState()) {
     on<RefreshListEvent>(_onRefresh);
     on<ReloadListEvent>(_onInitialLoad);
-    on<LoadMoreListEvent>(_onLoadMore,
-        transformer: throttleDroppable(const Duration(milliseconds: 200)));
+    on<LoadMoreListEvent>(
+      _onLoadMore,
+      transformer: throttleDroppable(const Duration(milliseconds: 200)),
+    );
   }
 
   @protected
@@ -67,7 +69,9 @@ abstract class ListBloc<T> extends Bloc<ListEvent, ListState> {
 
   @protected
   Future<void> onMoreLoaded(
-      LoadedListState<T> state, Emitter<ListState> emit) async {
+    LoadedListState<T> state,
+    Emitter<ListState> emit,
+  ) async {
     final issues = await loadMoreData(state);
 
     emit(onCreateLoadedState(state, issues));
@@ -97,7 +101,9 @@ abstract class ListBloc<T> extends Bloc<ListEvent, ListState> {
 
   @protected
   LoadedListState<T> onCreateLoadedState(
-      LoadedListState<T> state, List<T> items);
+    LoadedListState<T> state,
+    List<T> items,
+  );
 
   void load() {
     add(const ReloadListEvent());

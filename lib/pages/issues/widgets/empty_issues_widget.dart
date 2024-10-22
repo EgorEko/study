@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class EmptyIssuesWidget extends StatelessWidget {
+  const EmptyIssuesWidget({required this.onRefresh, super.key});
   final VoidCallback onRefresh;
-  const EmptyIssuesWidget({super.key, required this.onRefresh});
 
   @override
   Widget build(BuildContext context) {

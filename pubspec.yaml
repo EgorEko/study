@@ -40,6 +40,7 @@ dependencies:
   equatable: ^2.0.5
   stream_transform: ^2.1.0
   bloc_concurrency: ^0.2.5
+  collection: ^1.18.0
 
 dev_dependencies:
   flutter_lints: ^5.0.0
