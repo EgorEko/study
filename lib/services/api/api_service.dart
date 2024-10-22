@@ -22,6 +22,7 @@ class ApiService {
   }
 
   List<T> _parseList<T>(http.Response response, T Function(dynamic) parser) {
+    print(response.statusCode);
     if (response.statusCode == 200) {
       final body = response.body;
       final List<dynamic> result = jsonDecode(body);

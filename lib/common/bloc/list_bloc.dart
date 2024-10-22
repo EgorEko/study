@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -45,7 +47,9 @@ abstract class ListBloc<T> extends Bloc<ListEvent, ListState> {
     if (currentState is RefreshableState) {
       try {
         await onRefreshed(emit);
-      } catch (e) {}
+      } catch (e) {
+        log(e.toString());
+      }
     }
   }
 

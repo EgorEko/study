@@ -12,7 +12,7 @@ class CounterText extends StatelessWidget {
 
     return Text(
       counter,
-      style: Theme.of(context).textTheme.headline4,
+      style: Theme.of(context).textTheme.headlineMedium,
     );
   }
 }

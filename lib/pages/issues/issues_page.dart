@@ -23,7 +23,7 @@ class IssuesPage extends StatelessWidget {
         bodyBuilder: (context, state, refreshIndicatorKey) {
           if (state is EmptyListState) {
             return EmptyListWidget(
-                title: 'No issues! Create one tostart play',
+                title: 'No issues! Create one to start play',
                 icon: Icons.add,
                 onAction: () =>
                     context.navigationService.openNewIssue(context));

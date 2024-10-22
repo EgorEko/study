@@ -28,7 +28,7 @@ class HomePage extends StatelessWidget {
                 final counter = service.currentValueText;
                 return Text(
                   counter,
-                  style: Theme.of(context).textTheme.headline4,
+                  style: Theme.of(context).textTheme.headlineMedium,
                 );
               },
             ),
