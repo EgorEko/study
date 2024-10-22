@@ -10,7 +10,7 @@ import 'my_app.dart';
 import 'pages/issues/bloc/issues_bloc.dart';
 
 void main() {
-  const currentUserToken = String.fromEnvironment('GITHUB_USER_TOKEN');
+  const currentUserToken = String.fromEnvironment('USER_TOKEN');
   final apiService = ApiService('https://api.github.com', currentUserToken);
 
   runApp(
